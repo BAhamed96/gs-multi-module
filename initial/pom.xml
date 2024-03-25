@@ -1,16 +1,868 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <groupId>org.springframework</groupId>
-    <artifactId>gs-multi-module</artifactId>
-    <version>0.1.0</version>
-    <packaging>pom</packaging>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.example</groupId>
+	<artifactId>gs-multi-module</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>common</module>
+		<module>transactions</module>
+	</modules>
+	<properties>
+		<application.java.version>19</application.java.version>
+		<classPathSeparator>/</classPathSeparator>
 
-    <modules>
-        <module>library</module>
-        <module>application</module>
-    </modules>
+	</properties>
+
+	<dependencies>
+
+		<!--  Container  -->
+
+		<dependency>
+
+			<groupId>javax.servlet</groupId>
+
+			<artifactId>javax.servlet-api</artifactId>
+
+			<version>4.0.1</version>
+
+			<scope>provided</scope>
+
+		</dependency>
+
+		<!--  Spring  -->
+
+		<dependency>
+
+			<groupId>org.springframework</groupId>
+
+			<artifactId>spring-core</artifactId>
+
+			<version>6.1.3</version>
+
+			<exclusions>
+
+				<exclusion>
+
+					<groupId>commons-logging</groupId>
+
+					<artifactId>commons-logging</artifactId>
+
+				</exclusion>
+
+			</exclusions>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.springframework</groupId>
+
+			<artifactId>spring-web</artifactId>
+
+			<version>6.1.4</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.springframework.boot</groupId>
+
+			<artifactId>spring-boot</artifactId>
+
+			<version>3.2.2</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.springframework</groupId>
+
+			<artifactId>spring-context</artifactId>
+
+			<version>6.1.3</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.springframework</groupId>
+
+			<artifactId>spring-aop</artifactId>
+
+			<version>6.1.3</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.springframework</groupId>
+
+			<artifactId>spring-webmvc</artifactId>
+
+			<version>6.1.3</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.springframework</groupId>
+
+			<artifactId>spring-orm</artifactId>
+
+			<version>6.1.3</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.springframework</groupId>
+
+			<artifactId>spring-test</artifactId>
+
+			<version>6.1.3</version>
+
+			<scope>test</scope>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.springframework</groupId>
+
+			<artifactId>spring-context-support</artifactId>
+
+			<version>6.1.3</version>
+
+		</dependency>
+
+		<!--  JSON Translation  -->
+
+		<dependency>
+
+			<groupId>com.google.code.gson</groupId>
+
+			<artifactId>gson</artifactId>
+
+			<version>2.8.9</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>com.sun.jersey</groupId>
+
+			<artifactId>jersey-client</artifactId>
+
+			<version>1.19.4</version>
+
+		</dependency>
+
+		<!--  Hibernate  -->
+
+		<dependency>
+
+			<groupId>org.hibernate</groupId>
+
+			<artifactId>hibernate-core</artifactId>
+
+			<version>6.4.4.Final</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.hibernate</groupId>
+
+			<artifactId>hibernate-ehcache</artifactId>
+
+			<version>5.6.15.Final</version>
+
+			<exclusions>
+
+				<exclusion>
+
+					<groupId>org.slf4j</groupId>
+
+					<artifactId>slf4j-api</artifactId>
+
+				</exclusion>
+
+			</exclusions>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>commons-validator</groupId>
+
+			<artifactId>commons-validator</artifactId>
+
+			<version>1.6</version>
+
+		</dependency>
+
+		<!--  EHCache Core APIs  -->
+
+		<dependency>
+
+			<groupId>net.sf.ehcache</groupId>
+
+			<artifactId>ehcache-core</artifactId>
+
+			<version>2.6.11</version>
+
+			<exclusions>
+
+				<exclusion>
+
+					<groupId>org.slf4j</groupId>
+
+					<artifactId>slf4j-api</artifactId>
+
+				</exclusion>
+
+			</exclusions>
+
+		</dependency>
+
+		<!--  Domain to DTO translation  -->
+
+		<dependency>
+
+			<groupId>org.modelmapper</groupId>
+
+			<artifactId>modelmapper</artifactId>
+
+			<version>2.3.2</version>
+
+		</dependency>
+
+		<!--  Database maintenance  -->
+
+		<dependency>
+
+			<groupId>org.flywaydb</groupId>
+
+			<artifactId>flyway-core</artifactId>
+
+			<version>5.2.4</version>
+
+		</dependency>
+
+		<!--  Database connections  -->
+
+		<dependency>
+
+			<groupId>com.microsoft.sqlserver</groupId>
+
+			<artifactId>mssql-jdbc</artifactId>
+
+			<version>7.1.3.jre11-preview</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>commons-dbcp</groupId>
+
+			<artifactId>commons-dbcp</artifactId>
+
+			<version>1.4</version>
+
+			<scope>compile</scope>
+
+		</dependency>
+
+		<!--  Logging  -->
+
+		<dependency>
+
+			<groupId>org.apache.logging.log4j</groupId>
+
+			<artifactId>log4j-api</artifactId>
+
+			<version>2.17.1</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.apache.logging.log4j</groupId>
+
+			<artifactId>log4j-core</artifactId>
+
+			<version>2.17.1</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.apache.logging.log4j</groupId>
+
+			<artifactId>log4j-slf4j-impl</artifactId>
+
+			<version>2.17.1</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.apache.commons</groupId>
+
+			<artifactId>commons-lang3</artifactId>
+
+			<version>3.8.1</version>
+
+		</dependency>
+
+		<!--  https://mvnrepository.com/artifact/org.apache.commons/commons-text  -->
+
+		<dependency>
+
+			<groupId>org.apache.commons</groupId>
+
+			<artifactId>commons-text</artifactId>
+
+			<version>1.10.0</version>
+
+		</dependency>
+
+		<!--  Testing  -->
+
+		<dependency>
+
+			<groupId>junit</groupId>
+
+			<artifactId>junit</artifactId>
+
+			<version>4.13.1</version>
+
+			<scope>test</scope>
+
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<resources>
+
+			<resource>
+
+				<directory>src/main/resources</directory>
+
+				<filtering>true</filtering>
+
+				<excludes>
+
+					<exclude>**/*.p12</exclude>
+
+				</excludes>
+
+			</resource>
+
+			<resource>
+
+				<directory>src/main/webapp/WEB-INF</directory>
+
+				<filtering>true</filtering>
+
+				<includes>
+					<include>*.*</include>
+				</includes>
+			</resource>
+			 <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <targetPath>${project.build.directory}/classes</targetPath>
+        <includes>
+            <include>**/*.class</include>
+        </includes>
+    </resource>	
+    
+   <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <targetPath>${project.build.directory}/classes</targetPath>
+        <includes>
+            <include>**/*.class</include>
+        </includes>
+    </resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.p12</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
+
+		<finalName>${project.groupId}.${project.artifactId}.${project.version}</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addClasspath>true</addClasspath>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Build>${project.version}</Implementation-Build>
+						</manifestEntries>
+					</archive>
+					<webResources>
+						<resource>
+							<directory>${basedir}/src/main/resources</directory>
+							<filtering>true</filtering>
+							<targetPath>WEB-INF/classes</targetPath>
+							<excludes>
+								<exclude>${basedir}/src/main/resources/properties/*.properties</exclude>
+								<exclude>**/*.p12</exclude>
+							</excludes>
+						</resource>
+						<resource>
+							<directory>src/main/webapp/WEB-INF</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>*.*</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>default-resources</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>resources</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-testResources</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testResources</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<delimiters>@</delimiters>
+					<useDefaultDelimiters>false</useDefaultDelimiters>
+				</configuration>
+			</plugin>
+
+			<!-- This plugin is required to specify the compiler version of Java -->
+
+			<plugin>
+
+				<groupId>org.apache.maven.plugins</groupId>
+
+				<artifactId>maven-compiler-plugin</artifactId>
+
+				<version>3.8.0</version>
+
+				<configuration>
+
+					<debug>true</debug>
+
+					<debuglevel>lines,vars,source</debuglevel>
+
+					<source>${application.java.version}</source>
+
+					<target>${application.java.version}</target>
+
+					<release>${application.java.version}</release>
+
+				</configuration>
+
+			</plugin>
+
+			<!-- This plugin is required for the Jar process to add classpath
+			info 
+				to the Manifest file -->
+
+			<plugin>
+
+				<groupId>org.apache.maven.plugins</groupId>
+
+				<artifactId>maven-jar-plugin</artifactId>
+
+				<version>3.1.1</version>
+
+				<executions>
+
+					<execution>
+
+						<goals>
+
+							<goal>test-jar</goal>
+
+						</goals>
+
+					</execution>
+
+				</executions>
+
+				<configuration>
+
+					<finalName>${finalName}</finalName>
+
+					<archive>
+
+						<manifest>
+
+							<addClasspath>true</addClasspath>
+
+						</manifest>
+
+						<manifestEntries>
+
+							<Implementation-Build>${project.version}</Implementation-Build>
+
+						</manifestEntries>
+
+					</archive>
+
+				</configuration>
+
+			</plugin>
+
+			<!-- This plugin is required to automate the build and release
+			process -->
+
+			<plugin>
+
+				<groupId>org.apache.maven.plugins</groupId>
+
+				<artifactId>maven-release-plugin</artifactId>
+
+				<version>2.5.3</version>
+
+				<configuration>
+
+					<preparationGoals>install</preparationGoals>
+
+					<arguments>-Dmaven.test.skip.exec=true
+						-Dmaven.javadoc.skip=true</arguments>
+
+					<goals />
+
+					<checkModificationExcludes>
+
+						<checkModificationExclude>.project</checkModificationExclude>
+
+						<checkModificationExclude>.settings</checkModificationExclude>
+
+						<checkModificationExclude>build-number.txt</checkModificationExclude>
+
+					</checkModificationExcludes>
+
+				</configuration>
+
+			</plugin>
+
+			<!-- This plugin will generate the javadoc -->
+
+			<plugin>
+
+				<groupId>org.apache.maven.plugins</groupId>
+
+				<artifactId>maven-javadoc-plugin</artifactId>
+
+				<version>3.0.1</version>
+
+			</plugin>
+
+			<!-- This plugin will generate the test reports -->
+
+			<plugin>
+
+				<groupId>org.apache.maven.plugins</groupId>
+
+				<artifactId>maven-surefire-plugin</artifactId>
+
+				<version>3.0.0-M3</version>
+
+			</plugin>
+
+			<!-- This plugin will deploy artifacts to repositories -->
+
+			<plugin>
+
+				<groupId>org.apache.maven.plugins</groupId>
+
+				<artifactId>maven-deploy-plugin</artifactId>
+
+				<version>3.0.0-M1</version>
+
+			</plugin>
+
+
+			<!-- Retrieve artifacts from repository such as nexus -->
+
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<artifactItems>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>utility</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>employer</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>masterdata</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>security</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>idaptive</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>transaction</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>reporting</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>interfaces</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>phx-app</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>customer-app</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>customer-proxy-app</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>tomcat-proxy-app</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.toyotafinancialservices.phoenix</groupId>
+							<artifactId>windows-proxy-app</artifactId>
+							<version>${github.artifact_version}</version>
+							<type>war</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</artifactItem>
+					</artifactItems>
+				</configuration>
+			</plugin>
+-->
+
+			<!-- Plugin used to clear artifacts from the local repository on the
+			clean 
+				phase -->
+
+			<plugin>
+
+				<groupId>org.codehaus.mojo</groupId>
+
+				<artifactId>build-helper-maven-plugin</artifactId>
+
+				<version>3.0.0</version>
+
+				<executions>
+
+					<execution>
+
+						<id>remove-project-artifacts</id>
+
+						<phase>clean</phase>
+
+						<goals>
+
+							<goal>remove-project-artifact</goal>
+
+						</goals>
+
+						<configuration>
+
+							<removeAll>false</removeAll>
+
+						</configuration>
+
+					</execution>
+
+				</executions>
+
+			</plugin>
+
+			<!-- This plugin does the resource substitution -->
+
+			<plugin>
+
+				<groupId>org.apache.maven.plugins</groupId>
+
+				<artifactId>maven-resources-plugin</artifactId>
+
+				<version>3.1.0</version>
+
+				<configuration>
+
+					<encoding>UTF-8</encoding>
+
+				</configuration>
+
+				<dependencies>
+
+					<dependency>
+
+						<groupId>org.apache.maven.shared</groupId>
+
+						<artifactId>maven-filtering</artifactId>
+
+						<version>3.1.1</version>
+
+					</dependency>
+
+				</dependencies>
+
+			</plugin>
+
+			<!-- Hibernate property lazy loading -->
+
+			<plugin>
+
+				<groupId>org.hibernate.orm.tooling</groupId>
+
+				<artifactId>hibernate-enhance-maven-plugin</artifactId>
+
+				<version>6.4.4.Final</version>
+
+				<executions>
+
+					<execution>
+
+						<configuration>
+
+							<failOnError>true</failOnError>
+
+							<enableLazyInitialization>true</enableLazyInitialization>
+
+						</configuration>
+
+						<goals>
+
+							<goal>enhance</goal>
+
+						</goals>
+
+					</execution>
+
+				</executions>
+
+			</plugin>
+
+
+			<plugin>
+
+				<groupId>org.eclipse.jetty</groupId>
+
+				<artifactId>jetty-maven-plugin</artifactId>
+
+				<version>9.4.14.v20181114</version>
+
+				<configuration>
+
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+
+					<webApp>
+
+						<contextPath>/${project.artifactId}</contextPath>
+
+					</webApp>
+
+				</configuration>
+
+			</plugin>
+
+		</plugins>
+
+
+	</build>
 
 </project>

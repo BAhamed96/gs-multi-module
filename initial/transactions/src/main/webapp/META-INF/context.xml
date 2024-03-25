@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context logEffectiveWebXml="true">
+	<Valve className="org.apache.catalina.valves.AccessLogValve"
+		directory="./logs/" prefix="access_log_transaction_"
+		fileDateFormat="yyyy-MM-dd.HH" suffix=".log"
+		pattern="%t %H cookie:%{SESSIONID}c request:%{SESSIONID}r %m %U %s %q %r" />
+</Context>
